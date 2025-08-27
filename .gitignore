@@ -94,5 +94,5 @@ htmlcov/
 # Docker 관련
 .dockerignore
 
-#md파일
-*.md
+#claude.md파일
+*.claude.md
