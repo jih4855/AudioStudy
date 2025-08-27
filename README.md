@@ -64,21 +64,21 @@ GOOGLE_API_KEY=your_google_api_key_here
  Ollama 사용 (무료, 로컬): 
 ```yaml
 llm:
-  model_name: "llama3.1"
+  model_name: "gemma3:12b"
   provider: "ollama"
 ```
 
  OpenAI 사용: 
 ```yaml
 llm:
-  model_name: "gpt-3.5-turbo"
+  model_name: "gpt5-mini"
   provider: "openai"
 ```
 
  Google Gemini 사용: 
 ```yaml
 llm:
-  model_name: "gemini-1.5-flash"
+  model_name: "gemini-2.5-flash"
   provider: "genai"
 ```
 
@@ -105,7 +105,7 @@ python main.py
 ```yaml
 # LLM 설정
 llm:
-  model_name: "llama3.1"
+  model_name: "gemma3n"
   provider: "ollama"
 
 # Whisper 모델 설정
@@ -145,7 +145,7 @@ curl -fsSL https://ollama.com/install.sh | sh
 
 # 모델 다운로드
 ollama pull llama3.1
-ollama pull gemma2
+ollama pull gemma3n
 ```
 
 ### 모델 선택 가이드
