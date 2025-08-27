@@ -94,5 +94,5 @@ htmlcov/
 # Docker 관련
 .dockerignore
 
-#claude.md파일
-*.claude.md
+# Claude Code 관련 파일
+CLAUDE.md
