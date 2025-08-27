@@ -1,0 +1,98 @@
+# 환경 변수 및 민감한 정보
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# API 키가 포함된 설정 파일들
+config.yaml.secret
+config.prod.yaml
+
+# Python 관련
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# 가상환경
+venv/
+env/
+ENV/
+.venv/
+.ENV/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# PyTorch 모델 및 체크포인트
+*.pth
+*.pt
+*.bin
+*.safetensors
+model_cache/
+models/
+
+# Whisper 모델 캐시
+~/.cache/whisper/
+
+# 음성 파일들 (크기가 큰 파일들)
+*.mp3
+*.wav
+*.m4a
+*.flac
+*.aac
+*.ogg
+*.wma
+
+# 결과 파일들 (선택사항 - 필요에 따라 주석 해제)
+text/
+result/
+source_file/
+
+# 임시 파일들
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db
+
+# IDE 관련
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 로그 파일들
+*.log
+logs/
+
+# 테스트 관련
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Docker 관련
+.dockerignore
+
+#md파일
+*.md
