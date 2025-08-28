@@ -6,11 +6,13 @@ import glob
 import ollama
 import yt_dlp
 from rich.console import Console
+import re
 
 console = Console()
 
 class Tool:
-    def __init__(self, text_output="text", source_file="source_file", result_folder="result", urls=None, chunk_size=1500, overlap=50, whisper_model="large-v3", audio_extensions=None):
+    def __init__(self, text_output="text", source_file="source_file", result_folder="result", urls=None, chunk_size=1500, overlap=50, whisper_model="large-v3", audio_extensions=None, max_length=50):
+
         self.text_output = text_output
         self.source_file = source_file
         self.result_folder = result_folder
@@ -19,6 +21,7 @@ class Tool:
         self.overlap = overlap
         self.whisper_model = whisper_model
         self.audio_extensions = audio_extensions if audio_extensions is not None else ["*.mp3", "*.wav", "*.m4a", "*.flac", "*.aac", "*.ogg", "*.wma"]
+        self.max_length = max_length
 
     #음성파일을 텍스트로 변환하고 저장할 폴더 생성하기
     def make_a_folder(self):
@@ -71,7 +74,7 @@ class Tool:
         except Exception as e:
             print(f"Error: {e}")
 
-    def download_youtube_audio(self):
+    def download_youtube_audio(self, preferred_codec="m4a", preferred_quality="192"):
         """YouTube 영상에서 음성만 추출"""
         ydl_opts = {
             'format': 'bestaudio/best',
@@ -82,8 +85,8 @@ class Tool:
             'nooverwrites': True,  # ← 중복 방지
             'postprocessors': [{
                 'key': 'FFmpegExtractAudio',
-                'preferredcodec': 'm4a',
-                'preferredquality': '192',
+                'preferredcodec': preferred_codec,
+                'preferredquality': preferred_quality,
             }],
             'ignoreerrors': True
         }
@@ -142,3 +145,16 @@ class Tool:
             start = end - self.overlap
 
         return chunks
+
+    def safe_filename(self, filename):
+        """파일명을 안전하게 변환"""
+        # 특수문자 제거 및 공백을 언더스코어로 변경
+        safe_name = re.sub(r'[<>:"/\\|?*]', '', filename)
+        safe_name = re.sub(r'[\'",.]', '', safe_name)
+        safe_name = re.sub(r'\s+', '_', safe_name)
+
+        # 길이 제한
+        if len(safe_name) > self.max_length:
+            safe_name = safe_name[:self.max_length]
+
+        return safe_name

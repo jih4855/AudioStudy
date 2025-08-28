@@ -20,7 +20,7 @@ audio:
   extensions: ["mp3", "wav", "m4a", "flac", "aac", "ogg", "wma"]
 
 urls:
-  -
+  - https://youtu.be/mFQSZgBFXDw?si=OSaVzbdrYNNM7_Fo
 
 split_text:
   chunk_size: 1500
@@ -153,3 +153,5 @@ prompts:
     }
 
     주어진 오표기 수정용어를 개념추출에 활용하세요 : {용어분석_response}
+
+max_length: 50

@@ -38,31 +38,32 @@ def main():
                 chunk_size=config['split_text']['chunk_size'],
                 overlap=config['split_text']['overlap'],
                 whisper_model=config['whisper']['model'],
-                audio_extensions=config['audio']['extensions']
+                audio_extensions=config['audio']['extensions'],
+                max_length=config.get('max_length', 50)
             )
     tool.download_youtube_audio()
     tool.transcribe_audio()
     json_file = glob.glob(os.path.join(config['folders']['text_output'], "*.json"))
 
     try:
-          for jso in track(json_file, description="📁 파일 처리 중..."):
-            if not jso:
+          for json_path in track(json_file, description="📁 파일 처리 중..."):
+            if not json_path:
                 console.print("No json files found.")
             else:
-                with open(jso, "r", encoding="utf-8") as f:
+                with open(json_path, "r", encoding="utf-8") as f:
                     json_content = json.load(f)
 
-                json_filename = os.path.basename(jso)
-                json_path = os.path.join(config['folders']['result_folder'], json_filename)
+                json_filename = os.path.basename(json_path)
+                result_json_path = os.path.join(config['folders']['result_folder'], json_filename)
 
                 # 같은 이름의 JSON 파일이 이미 있는지 확인
-                if os.path.exists(json_path):
+                if os.path.exists(result_json_path):
                     console.print(f"이미 존재함: {json_filename} (건너뛰기)")
                     continue  # 다음 파일로 넘어감
                 text_chunks = tool.split_text_with_overlap(json_content['text'])
                 for i, chunk in enumerate(track(text_chunks, description="📝 청크 처리 중...")):
                     # 청크별 파일명 생성
-                    base_filename = os.path.splitext(os.path.basename(jso))[0]
+                    base_filename = tool.safe_filename(os.path.splitext(os.path.basename(json_path))[0])
                     chunk_filename = f"{base_filename}_chunk_{i+1:03d}.json"
                     chunk_path = os.path.join(config['folders']['result_folder'], chunk_filename)
 
