@@ -20,7 +20,7 @@ audio:
   extensions: ["mp3", "wav", "m4a", "flac", "aac", "ogg", "wma"]
 
 urls:
-  - https://youtu.be/mFQSZgBFXDw?si=OSaVzbdrYNNM7_Fo
+  - youtube url 추가
 
 split_text:
   chunk_size: 1500
